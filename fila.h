@@ -27,5 +27,5 @@ fila *inserirfila(fila *q, tipo_elem *filanaviosaux, int *cont); //Funçao para 
 int menorfila(int *a, int *b, int *c, int *d);                   // Retorna qual tem o menor tamanho de fila
 void imprimirfila(fila *q);                                      //Imprime os ID das filas
 tipo_elem entradanavios(int *id_navio);                          //Gera os dados aleatoriso do navio como o ID
-fila *insertfila(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *filanavios4, int *id_navios, int *tamanhofilanavios1, int *tamanhofilanavios2, int *tamanhofilanavios3, int *tamanhofilanavios4);
+fila *insertfila(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *filanavios4, int *id_navios, int *tamanhofilanavios1, int *tamanhofilanavios2, int *tamanhofilanavios3, int *tamanhofilanavios4, int *qnt_fila);
 #endif

@@ -53,9 +53,7 @@ void imprimirfila(fila *q)
     {
         while (ponteiro != NULL)
         {
-            printf("%d\n", ponteiro->id);
-            printf("CONTEINER :%d \n", ponteiro->qntConteiner);
-            printf("OutroBAND:%d \n", ponteiro->qtdTempofila);
+            printf("ID: %d\n", ponteiro->id);
             ponteiro = ponteiro->lig;
         }
     }
@@ -87,7 +85,7 @@ tipo_elem entradanavios(int *id_navio)
     tipo_elem aux;
     (*id_navio) += 1;
     aux.id = (*id_navio);
-    aux.qntConteiner = (4 + (rand() % 4));
+    aux.qntConteiner = (4 + (rand() % 12));
     aux.qtdTempofila = 7 + (*id_navio);
     return aux;
 }
@@ -130,33 +128,37 @@ int menorfila(int *a, int *b, int *c, int *d)
     }
 }
 
-fila *insertfila(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *filanavios4, int *id_navios, int *tamanhofilanavios1, int *tamanhofilanavios2, int *tamanhofilanavios3, int *tamanhofilanavios4)
+fila *insertfila(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *filanavios4, int *id_navios, int *tamanhofilanavios1, int *tamanhofilanavios2, int *tamanhofilanavios3, int *tamanhofilanavios4, int *qnt_fila)
 {
-    int verificarmenorfila;
+    int verificarmenorfila = 0;
     tipo_elem filanaviosaux;
     memset(&filanaviosaux, 0, sizeof(tipo_elem));
-    verificarmenorfila = 0;
     verificarmenorfila = menorfila(tamanhofilanavios1, tamanhofilanavios2, tamanhofilanavios3, tamanhofilanavios4);
-    printf("Variavel verificarmenorfila: %d \n", verificarmenorfila);
     filanaviosaux = entradanavios(id_navios);
     if (verificarmenorfila == 1)
     {
+        *qnt_fila += 1;
         filanavios1 = inserirfila(filanavios1, &filanaviosaux, tamanhofilanavios1);
         return filanavios1;
     }
     else if (verificarmenorfila == 2)
     {
+        *qnt_fila += 1;
         filanavios2 = inserirfila(filanavios2, &filanaviosaux, tamanhofilanavios2);
         return filanavios2;
     }
     else if (verificarmenorfila == 3)
     {
+        *qnt_fila += 1;
         filanavios3 = inserirfila(filanavios3, &filanaviosaux, tamanhofilanavios3);
         return filanavios3;
     }
     else if (verificarmenorfila == 4)
     {
+        *qnt_fila += 1;
         filanavios4 = inserirfila(filanavios4, &filanaviosaux, tamanhofilanavios4);
         return filanavios4;
     }
+    if (*qnt_fila >= 4)
+        *qnt_fila = 4;
 }

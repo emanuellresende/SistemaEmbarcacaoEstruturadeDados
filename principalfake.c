@@ -174,8 +174,15 @@ int retornar_travessas(PilhaTravessa *t1, PilhaTravessa *t2, PilhaTravessa *t3, 
     //Fazer as verificaçoes de qual travessa nao esta cheia
     if (pilhacheiaTravessa(t1))
     {
-        printf("T1 cheia");
-       
+        if (*carro1 == 0)
+            *carro1 += 1;
+        else if (*carro1 == 3)
+        {
+            *carro1 = 0;
+            t1 = NULL;
+            t1 = criaPilhaTravessa();
+            return 1;
+        }
     }
 
     else
@@ -183,6 +190,15 @@ int retornar_travessas(PilhaTravessa *t1, PilhaTravessa *t2, PilhaTravessa *t3, 
 
     if (pilhacheiaTravessa(t2))
     {
+        if (*carro2 == 0)
+            *carro2 += 1;
+        else if (*carro2 == 3)
+        {
+            t2 = NULL;
+            t2 = criaPilhaTravessa();
+            *carro2 = 0;
+            return 2;
+        }
     }
 
     else
@@ -190,12 +206,30 @@ int retornar_travessas(PilhaTravessa *t1, PilhaTravessa *t2, PilhaTravessa *t3, 
 
     if (pilhacheiaTravessa(t3))
     {
+        if (*carro3 == 0)
+            *carro3 += 1;
+        else if (*carro3 == 3)
+        {
+            t3 = NULL;
+            t3 = criaPilhaTravessa();
+            *carro3 = 0;
+            return 3;
+        }
     }
     else
         return 3;
 
     if (pilhacheiaTravessa(t4))
     {
+         if (*carro4 == 0)
+            *carro2 += 1;
+        else if (*carro2 == 3)
+        {
+            t2 = NULL;
+            t2 = criaPilhaTravessa();
+            *carro2 = 0;
+            return 2;
+        }
     }
     else
         return 4;
