@@ -47,15 +47,18 @@ void imprimirfila(fila *q)
     aux = filavazia(q);
     if (aux == true)
     {
-        printf("FILA VAZIA!\n");
+        printf("\n");
+        return;
     }
     else
     {
+        printf("ID: ");
         while (ponteiro != NULL)
         {
-            printf("ID: %d\n", ponteiro->id);
+            printf("%d,", ponteiro->id);
             ponteiro = ponteiro->lig;
         }
+        printf("\n");
     }
 }
 fila *removerfila(fila *q)
@@ -65,7 +68,6 @@ fila *removerfila(fila *q)
     tipo_elem *p;
     if (aux == true)
     {
-        printf("FILA VAZIA!\n");
         return 0;
     }
     else
@@ -85,8 +87,8 @@ tipo_elem entradanavios(int *id_navio)
     tipo_elem aux;
     (*id_navio) += 1;
     aux.id = (*id_navio);
-    aux.qntConteiner = (4 + (rand() % 12));
-    aux.qtdTempofila = 7 + (*id_navio);
+    aux.qntConteiner = (4 + (rand() % 13));
+    aux.qtdTempofila = 0;
     return aux;
 }
 

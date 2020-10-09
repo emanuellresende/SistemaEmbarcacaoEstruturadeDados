@@ -9,9 +9,9 @@
 typedef int tipo_item_fila; //Define o tipo de elementos da fila
 typedef struct elem
 {
-    tipo_item_fila id;
-    tipo_item_fila qntConteiner;
-    tipo_item_fila qtdTempofila;
+    tipo_item_fila id;           //ID navios
+    tipo_item_fila qntConteiner; // Quantidade de Conteiner Armazenada
+    tipo_item_fila qtdTempofila; // Tempo na Fila
     struct elem *lig;
 } tipo_elem; //Tipos dos elementos das filas
 

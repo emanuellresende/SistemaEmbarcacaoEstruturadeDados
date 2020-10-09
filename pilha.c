@@ -16,10 +16,7 @@ int pilhavazia(Pilha *p)
     return p->topo < 0;
 }
 
-void empilha(Pilha *p)
-{
-    p->conteineratraque[p->topo++] = 1;
-}
+
 void empilhaatraque(Pilha *p, int x)
 {
     int i = 0;
@@ -50,6 +47,11 @@ int pilhacheiaTravessa(PilhaTravessa *p)
     return (p->topo == MAXTravessa);
 }
 
+int pilhanaocheia(PilhaTravessa *p)
+{
+    return (p->topo != MAXTravessa);
+}
+
 int pilhavaziaTravessa(PilhaTravessa *p)
 {
     return p->topo < 0;
@@ -72,6 +74,7 @@ int desempilhaTravessa(PilhaTravessa *p)
 //Passar essa void para outro lugar depois
 void atracando(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *filanavios4, Pilha *atraque1, Pilha *atraque2, Pilha *atraque3, Pilha *atraque4, int *num_atraque)
 {
+    //FUnçao funcionando perfeitamente
     int aux = 0;
     if (pilhavazia(atraque1) && filavazia(filanavios1) == false && *num_atraque == 1)
     {
@@ -109,29 +112,41 @@ void atracando(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *fi
     }
 }
 
-void empilhar_travessas(PilhaTravessa *t1, PilhaTravessa *t2, PilhaTravessa *t3, PilhaTravessa *t4, PilhaTravessa *t5, int aux, Pilha *a1, Pilha *a2, Pilha *a3, Pilha *a4, int *carro1, int *carro2, int *carro3, int *carro4)
+void empilhar_travessas(PilhaTravessa *t1, PilhaTravessa *t2, PilhaTravessa *t3, PilhaTravessa *t4, PilhaTravessa *t5, int aux, Pilha *a1, Pilha *a2, Pilha *a3, Pilha *a4)
 {
-    int travessa;
-    travessa = retornar_travessas(t1, t2, t3, t4, t5, carro1, carro2, carro3, carro4);
+    int travessa = 0;
+    travessa = retornar_travessas(t1, t2, t3, t4, t5);
     //Mano esses ifs e pra ver qual fila vc vai desempilhar e empilhar no atraque seu zeruela
     if (aux == 1)
     {
-        remover_elemento_atraque_paratravessa(t1, t2, t3, t4, t5, a1, travessa);
+        if (pilhavazia(a1))
+            return;
+        remover_elemento_atraque_paratravessa(t1, t2, t3, t4, t5, a1, travessa); // Funcionando
+        return;
     }
 
     else if (aux == 2)
     {
+        if (pilhavazia(a2))
+            return;
         remover_elemento_atraque_paratravessa(t1, t2, t3, t4, t5, a2, travessa);
+        return;
     }
 
     else if (aux == 3)
     {
+        if (pilhavazia(a3))
+            return;
         remover_elemento_atraque_paratravessa(t1, t2, t3, t4, t5, a3, travessa);
+        return;
     }
 
     else if (aux == 4)
     {
+        if (pilhavazia(a4))
+            return;
         remover_elemento_atraque_paratravessa(t1, t2, t3, t4, t5, a4, travessa);
+        return;
     }
 }
 
@@ -169,66 +184,99 @@ void remover_elemento_atraque_paratravessa(PilhaTravessa *t1, PilhaTravessa *t2,
         printf("Todas travessas cheias \n");
 }
 
-int retornar_travessas(PilhaTravessa *t1, PilhaTravessa *t2, PilhaTravessa *t3, PilhaTravessa *t4, PilhaTravessa *t5, int *carro1, int *carro2, int *carro3, int *carro4)
+int retornar_travessas(PilhaTravessa *t1, PilhaTravessa *t2, PilhaTravessa *t3, PilhaTravessa *t4, PilhaTravessa *t5)
 {
     //Fazer as verificaçoes de qual travessa nao esta cheia
-    if (pilhacheiaTravessa(t1))
-    {
-        printf("T1 cheia");
-       
-    }
-
-    else
+    if (pilhanaocheia(t1))
         return 1;
 
-    if (pilhacheiaTravessa(t2))
-    {
-    }
-
-    else
+    if (pilhanaocheia(t2))
         return 2;
 
-    if (pilhacheiaTravessa(t3))
-    {
-    }
-    else
+    if (pilhanaocheia(t3))
         return 3;
 
-    if (pilhacheiaTravessa(t4))
-    {
-    }
-    else
+    if (pilhanaocheia(t4))
         return 4;
 
-    if (pilhacheiaTravessa(t5))
-        printf("Pilha 5 cheia \n");
-    else
+    if (pilhanaocheia(t5))
         return 5;
 
     return 0;
 }
 
-void carro(int *c1, int *c2, int *c3, int *c4)
+void carro(int carro[4], PilhaTravessa *t1, PilhaTravessa *t2, PilhaTravessa *t3, PilhaTravessa *t4, PilhaTravessa *t5)
 {
-    if (*c1 == 1 || *c1 == 2)
-        *c1 += 1;
-    if (*c2 == 1 || *c2 == 2)
-        *c2 += 1;
-    if (*c3 == 1 || *c3 == 2)
-        *c3 += 1;
-    if (*c4 == 1 || *c4 == 2)
-        *c4 += 1;
+    if (pilhacheiaTravessa(t1))
+    {
+        carro[0] += 1;
+        if (carro[0] == 3)
+        {
+            while (t1->topo != -1)
+                t1->conteinertravessa[t1->topo--];
+            carro[0] = 0;
+        }
+    }
+    if (pilhacheiaTravessa(t2))
+    {
+        carro[1] += 1;
+        if (carro[1] == 3)
+        {
+            while (t2->topo != -1)
+                t2->conteinertravessa[t2->topo--];
+            carro[1] = 0;
+        }
+    }
+    if (pilhacheiaTravessa(t3))
+    {
+        carro[2] += 1;
+        if (carro[2] == 3)
+        {
+            while (t3->topo != -1)
+                t3->conteinertravessa[t3->topo--];
+            carro[2] = 0;
+        }
+    }
+    if (pilhacheiaTravessa(t4))
+    {
+        carro[3] += 1;
+        if (carro[3] == 3)
+        {
+            while (t4->topo != -1)
+                t4->conteinertravessa[t4->topo--];
+            carro[3] = 0;
+        }
+    }
+    if (pilhacheiaTravessa(t5))
+    {
+        carro[1] += 1;
+
+        if (carro[1] == 3)
+        {
+            while (t5->topo != -1)
+                t5->conteinertravessa[t5->topo--];
+            carro[1] = 0;
+        }
+    }
 }
-void mostrar_carro(int c1, int c2, int c3, int c4)
+void mostrar_carro(int c[4])
 {
-    int aux = 0;
-    if (c1 == 2)
-        aux += 1;
-    if (c2 == 2)
-        aux += 1;
-    if (c3 == 2)
-        aux += 1;
-    if (c4 == 2)
-        aux += 1;
-    printf("asd");
+    if (c[0] == 1)
+        printf("Carro 1 Saiu para a travessa \n");
+    if (c[1] == 1)
+        printf("Carro 2 Saiu para a travessa \n");
+    if (c[2] == 1)
+        printf("Carro 3 Saiu para a travessa \n");
+    if (c[3] == 1)
+        printf("Carro 4 Saiu para a travessa \n");
+    if (c[0] != 1 && c[1] != 1 && c[2] != 1 && c[3] != 1)
+        printf("Nenhum carro saiu para a travessa\n");
+}
+void imprimir_dados_travessas(PilhaTravessa *travessa1, PilhaTravessa *travessa2, PilhaTravessa *travessa3, PilhaTravessa *travessa4, PilhaTravessa *travessa5)
+{
+    printf("Travessa 1 - %d \n", travessa1->topo + 1);
+    printf("Travessa 2 - %d \n", travessa2->topo + 1);
+    printf("Travessa 3 - %d \n", travessa3->topo + 1);
+    printf("Travessa 4 - %d \n", travessa4->topo + 1);
+    printf("Travessa 5 - %d \n", travessa5->topo + 1);
 }
