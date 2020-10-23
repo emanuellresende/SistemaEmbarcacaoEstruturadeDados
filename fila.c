@@ -52,10 +52,12 @@ void imprimirfila(fila *q)
     }
     else
     {
-        printf("ID: ");
+
         while (ponteiro != NULL)
         {
+            printf("ID: ");
             printf("%d,", ponteiro->id);
+            printf("Tempo %d\n", ponteiro->qtdTempofila);
             ponteiro = ponteiro->lig;
         }
         printf("\n");
@@ -163,4 +165,14 @@ fila *insertfila(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *
     }
     if (*qnt_fila >= 4)
         *qnt_fila = 4;
+}
+
+void hora_fila(tipo_elem *ponteiro)
+{
+
+    while (ponteiro != NULL)
+    {
+        ponteiro->qtdTempofila += 1;
+        ponteiro = ponteiro->lig;
+    }
 }

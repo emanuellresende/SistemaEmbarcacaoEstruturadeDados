@@ -16,7 +16,6 @@ int pilhavazia(Pilha *p)
     return p->topo < 0;
 }
 
-
 void empilhaatraque(Pilha *p, int x)
 {
     int i = 0;
@@ -72,16 +71,20 @@ int desempilhaTravessa(PilhaTravessa *p)
 //FIm travessas
 
 //Passar essa void para outro lugar depois
-void atracando(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *filanavios4, Pilha *atraque1, Pilha *atraque2, Pilha *atraque3, Pilha *atraque4, int *num_atraque)
+void atracando(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *filanavios4, Pilha *atraque1, Pilha *atraque2, Pilha *atraque3, Pilha *atraque4, int *num_atraque, float *a1, float *a2, float *a3, float *a4, float *tm1, float *tm2, float *tm3, float *tm4, float *t1, float *t2, float *t3, float *t4)
 {
     //FUnçao funcionando perfeitamente
     int aux = 0;
+    float x = 0;
     if (pilhavazia(atraque1) && filavazia(filanavios1) == false && *num_atraque == 1)
     {
         aux = filanavios1->inicio->qntConteiner;
         empilhaatraque(atraque1, aux);
         removerfila(filanavios1);
         *num_atraque = 2;
+        *t1 = (*tm1 + *a1) / 2;
+        *a1 = *tm1;
+        *tm1 = 0;
         return;
     }
 
@@ -91,6 +94,9 @@ void atracando(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *fi
         empilhaatraque(atraque2, aux);
         removerfila(filanavios2);
         *num_atraque = 3;
+        *t2 = (*tm2 + *a2) / 2;
+        *a2 = *tm2;
+        *tm2 = 0;
         return;
     }
 
@@ -100,6 +106,9 @@ void atracando(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *fi
         empilhaatraque(atraque3, aux);
         removerfila(filanavios3);
         *num_atraque = 4;
+        *t3 = (*tm3 + *a3) / 2;
+        *a1 = *tm3;
+        *tm3 = 0;
         return;
     }
     else if (pilhavazia(atraque4) && filavazia(filanavios4) == false && *num_atraque == 4)
@@ -108,6 +117,9 @@ void atracando(fila *filanavios1, fila *filanavios2, fila *filanavios3, fila *fi
         empilhaatraque(atraque4, aux);
         removerfila(filanavios4);
         *num_atraque = 1;
+        *t4 = (*tm4 + *a4) / 2;
+        *a4 = *tm4;
+        *tm4 = 0;
         return;
     }
 }
